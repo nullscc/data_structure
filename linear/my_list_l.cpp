@@ -1,8 +1,9 @@
+// NOTE: 注意操作指针时，访问NULL的指向时导致程序崩溃的问题 
+// NOTE: 位序是从带数据的节点开始算的 
+
 #include<stdio.h>
 #include<stdlib.h>
 #include"../common.h"
-
-// NOTE: 注意操作指针时，访问NULL的指向时导致程序崩溃的问题 
 
 typedef int ElemType;
 
