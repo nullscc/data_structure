@@ -1,4 +1,4 @@
-// NOTE: λ���ǴӴ����ݵĽڵ㿪ʼ��ģ�������̬������λ��պú������±���һ���� 
+// NOTE: 位序是从带数据的节点开始算的，这样静态链表的位序刚好和数组下标是一样的 
 
 #include<stdio.h>
 
@@ -70,7 +70,7 @@ void difference(SLinkList &space, int &S) {
 		} else {
 			space[p].cur = space[k].cur;
 			Free_SL(space, k);
-			if (r == k) r = p; // NOTE: ɾ������������һ��������Ҫ�޸�βָ�� 
+			if (r == k) r = p; // NOTE: 删除的如果是最后一个，则需要修改尾指针 
 		}
 	}
 }

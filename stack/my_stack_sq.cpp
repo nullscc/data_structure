@@ -18,6 +18,7 @@ Status InitStack(SqStack &S) {
 	if (!S.base) exit(OVERFLOW);
 	S.top = S.base;
 	S.stacksize = STACK_INIT_SIZE;
+	return OK;
 }
 
 Status GetTop(SqStack &S, SElemType &e) {
@@ -33,7 +34,7 @@ Status Push(SqStack &S, SElemType e) {
 	if (S.top - S.base >= S.stacksize) {
 		S.base = (SElemType *)realloc(S.base, S.stacksize+STACKINCREMENT);
 		if (!S.base) exit(OVERFLOW);
-		S.top = S.base + S.stacksize; // NOTE: ÕâÀïS.top±ØĞëÖØĞÂ¸³Öµ£¬ÒòÎªS.base±ä»¯ÁË 
+		S.top = S.base + S.stacksize; // NOTE: è¿™é‡ŒS.topå¿…é¡»é‡æ–°èµ‹å€¼ï¼Œå› ä¸ºS.baseå˜åŒ–äº† 
 		S.stacksize +=  STACKINCREMENT;
 	}
 	

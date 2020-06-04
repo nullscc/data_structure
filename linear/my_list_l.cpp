@@ -1,5 +1,5 @@
-// NOTE: ×¢Òâ²Ù×÷Ö¸ÕëÊ±£¬·ÃÎÊNULLµÄÖ¸ÏòÊ±µ¼ÖÂ³ÌĞò±ÀÀ£µÄÎÊÌâ 
-// NOTE: Î»ĞòÊÇ´Ó´øÊı¾İµÄ½Úµã¿ªÊ¼ËãµÄ 
+// NOTE: æ³¨æ„æ“ä½œæŒ‡é’ˆæ—¶ï¼Œè®¿é—®NULLçš„æŒ‡å‘æ—¶å¯¼è‡´ç¨‹åºå´©æºƒçš„é—®é¢˜ 
+// NOTE: ä½åºæ˜¯ä»å¸¦æ•°æ®çš„èŠ‚ç‚¹å¼€å§‹ç®—çš„ 
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -14,7 +14,7 @@ typedef struct LNode{
 
 Status GetElem_L(LinkList &L, int i, ElemType &e) {
 	int j=0;
-	LinkList p = L; // NOTE: ÕâÀïÒ»¶¨ÆğÊ¼²»ÄÜÊÇ p = L-next 
+	LinkList p = L; // NOTE: è¿™é‡Œä¸€å®šèµ·å§‹ä¸èƒ½æ˜¯ p = L-next 
 	while(p && j<i) {
 		p = p->next;
 		j++;
@@ -34,7 +34,7 @@ Status ListInit_L(LinkList &L) {
 
 Status ListInsert_L(LinkList &L, int i, ElemType e) {
 	int j=0;
-	LinkList p = L; // NOTE: ÕâÀïÒ»¶¨ÆğÊ¼²»ÄÜÊÇ p = L-next
+	LinkList p = L; // NOTE: è¿™é‡Œä¸€å®šèµ·å§‹ä¸èƒ½æ˜¯ p = L-next
 	
 	while (p && j<i-1) {
 		p = p->next;
@@ -54,7 +54,7 @@ Status ListInsert_L(LinkList &L, int i, ElemType e) {
 
 Status ListDelete_L(LinkList &L, int i, ElemType &e) {
 	int j=0;
-	LinkList p = L; // NOTE: ÕâÀïÒ»¶¨ÆğÊ¼²»ÄÜÊÇ p = L-next
+	LinkList p = L; // NOTE: è¿™é‡Œä¸€å®šèµ·å§‹ä¸èƒ½æ˜¯ p = L-next
 	
 	while (p && j<i-1) {
 		p = p->next;
@@ -72,9 +72,9 @@ Status ListDelete_L(LinkList &L, int i, ElemType &e) {
 }
 
 Status MergeList_L(LinkList &La, LinkList &Lb, LinkList &Lc) {
-	LinkList pa = La->next; // NOTE: ÕâÀïÒ»¶¨ÆğÊ¼ÒªÊÇ pa = La->next
+	LinkList pa = La->next; // NOTE: è¿™é‡Œä¸€å®šèµ·å§‹è¦æ˜¯ pa = La->next
 	LinkList pb = Lb->next;
-	LinkList pc = Lc; // NOTE: ÕâÀïÒ»¶¨ÆğÊ¼²»ÄÜÊÇ p = L-next
+	LinkList pc = Lc; // NOTE: è¿™é‡Œä¸€å®šèµ·å§‹ä¸èƒ½æ˜¯ p = L-next
 	
 	while (pa && pb){
 		LinkList tmp = (LinkList)malloc(sizeof(LNode));
@@ -91,7 +91,7 @@ Status MergeList_L(LinkList &La, LinkList &Lb, LinkList &Lc) {
 		pc = pc->next;
 	}
 
-	pc->next = pa ? pa : pb; // NOTE: ÓÉÓÚÊÇÁ´±í£¬ËùÒÔ²»ĞèÒªºóÃæµÄÁ½²ãÑ­»·ÁË£¬µ«ÊÇÈç¹û²»¹²ÏíµØÖ·µÄ»°¾Í»¹ÊÇĞèÒª£¬°´ÕÕ³ÌĞòÉè¼Æ¹æ·¶À´Ëµ¸Ğ¾õ»¹ÊÇĞèÒª½«Êı¾İÍêÈ«¿½±´¹ıÀ´£¬¶ø²»½ö½öÊÇÁ´½Ó¹ıÀ´ 
+	pc->next = pa ? pa : pb; // NOTE: ç”±äºæ˜¯é“¾è¡¨ï¼Œæ‰€ä»¥ä¸éœ€è¦åé¢çš„ä¸¤å±‚å¾ªç¯äº†ï¼Œä½†æ˜¯å¦‚æœä¸å…±äº«åœ°å€çš„è¯å°±è¿˜æ˜¯éœ€è¦ï¼ŒæŒ‰ç…§ç¨‹åºè®¾è®¡è§„èŒƒæ¥è¯´æ„Ÿè§‰è¿˜æ˜¯éœ€è¦å°†æ•°æ®å®Œå…¨æ‹·è´è¿‡æ¥ï¼Œè€Œä¸ä»…ä»…æ˜¯é“¾æ¥è¿‡æ¥ 
 //	while (pa) {
 //		LinkList tmp = (LinkList)malloc(sizeof(LNode));
 //		tmp->next = NULL;

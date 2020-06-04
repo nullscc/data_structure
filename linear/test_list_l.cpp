@@ -7,8 +7,8 @@ int main() {
 	LinkList L = (LinkList)malloc(sizeof(LNode));
 	ListInit_L(L);
 	
-	// 这里初始化的next指针如果不手动置为NULL，则整个程序出错 
-	printf("初始化数据为:%d %p\n", L->data, L->next);
+	// 杩欓噷鍒濆鍖栫殑next鎸囬拡濡傛灉涓嶆墜鍔ㄧ疆涓篘ULL锛屽垯鏁翠釜绋嬪簭鍑洪敊 
+	printf("鍒濆鍖栨暟鎹负:%d %p\n", L->data, L->next);
 	int i;
 	
 	for(i=1;i<=10;i++) {
@@ -36,7 +36,7 @@ int main() {
 	ListDelete_L(L, 8, e_tmp);
 	assert(e_tmp==10);
 	
-	printf("链表里面的数据为:");
+	printf("閾捐〃閲岄潰鐨勬暟鎹负:");
 	LinkList p = L;
 	while (p->next) {
 		printf(" %d", p->next->data);
@@ -48,7 +48,7 @@ int main() {
 	ListInit_L(Lb);
 	
 	for(i=1; i<9;i++) assert(ListInsert_L(Lb, i, i+8));
-	printf("链表Lb里面的数据为:");
+	printf("閾捐〃Lb閲岄潰鐨勬暟鎹负:");
 	p = Lb;
 	while (p->next) {
 		printf(" %d", p->next->data);
@@ -60,10 +60,10 @@ int main() {
 	ListInit_L(Lc);
 	MergeList_L(L, Lb, Lc);
 	
-	printf("链表Lc里面的数据为:");
-	printf("Lc的地址:%p\n", Lc);
+	printf("閾捐〃Lc閲岄潰鐨勬暟鎹负:");
+	printf("Lc鐨勫湴鍧�:%p\n", Lc);
 	p = Lc;
-	printf("Lc的二次地址:%p\n", p);
+	printf("Lc鐨勪簩娆″湴鍧�:%p\n", p);
 	int j=1;
 	while (p->next) {
 		printf(" %d", p->next->data);

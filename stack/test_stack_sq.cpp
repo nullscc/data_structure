@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<assert.h>
-//#include"stack_sq.cpp"
-#include"my_stack_sq.cpp"
+#include"stack_sq.cpp"
+//#include"my_stack_sq.cpp"
 
 int main() {
 	SqStack S;

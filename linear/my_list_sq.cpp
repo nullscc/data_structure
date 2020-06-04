@@ -70,7 +70,7 @@ Status ListDelete_Sq(SqList &L, int i, ElemType &e) {
 }
 
 Status MergeList_Sq(SqList La, SqList &Lb, SqList &Lc) {
-	// TODO: La ºÍ Lb ÒªÏÈÅÅĞò 
+	// TODO: La å’Œ Lb è¦å…ˆæ’åº 
 	Lc.listsize = LIST_INIT_SIZE + ((((La.length + Lb.length) - LIST_INIT_SIZE) / 10) + 1) * 10;
 	Lc.elem = (ElemType *)malloc(sizeof(ElemType)*Lc.listsize);
 	Lc.length = La.length + Lb.length; 

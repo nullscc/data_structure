@@ -18,7 +18,7 @@ Status InitStack(SqStack &S) {
 	S.base = (SElemType *)malloc(STACK_INIT_SIZE*sizeof(SElemType));
 	if (!S.base) exit(OVERFLOW);
 	
-	S.top = S.base; // ³õÊ¼»¯Ê±¼´¿ÉÖª 
+	S.top = S.base; // åˆå§‹åŒ–æ—¶å³å¯çŸ¥ 
 	S.stacksize = STACK_INIT_SIZE;
 	return OK;
 }
@@ -30,7 +30,7 @@ Status GetTop(SqStack S, SElemType &e) {
 }
 
 Status Push(SqStack &S, SElemType e) {
-	if (S.top - S.base >= S.stacksize) { // NOTE: µ±Õ»ÂúÊ±£¬S.topÖ¸ÏòÒ»¸ö²»ÊôÓÚ´Ë³ÌĞòµÄµØÖ·£¬(×¢ÒâÕ»ÂúÊ±¼´¿ÉÖªµÀ)¿ÉÄÜÓĞÒş»¼£¿ 
+	if (S.top - S.base >= S.stacksize) { // NOTE: å½“æ ˆæ»¡æ—¶ï¼ŒS.topæŒ‡å‘ä¸€ä¸ªä¸å±äºæ­¤ç¨‹åºçš„åœ°å€ï¼Œ(æ³¨æ„æ ˆæ»¡æ—¶å³å¯çŸ¥é“)å¯èƒ½æœ‰éšæ‚£ï¼Ÿ 
 		S.base = (SElemType *) realloc(S.base, (S.stacksize + STACKINCREMENT)*sizeof(SElemType));
 		
 		if (!S.base) exit(OVERFLOW);
@@ -40,6 +40,7 @@ Status Push(SqStack &S, SElemType e) {
 	}
 	
 	*S.top++ = e;
+	return OK;
 }
 
 Status Pop(SqStack &S, SElemType &e) {

@@ -1,4 +1,4 @@
-// ���Ա�������ʵ��
+// 线性表的链表实现
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -62,6 +62,7 @@ Status ListDelete_L(LinkList &L, int i, ElemType &e) {
 	p->next = q->next;
 	e = q->data;
 	free(q);	
+	return 1;
 }
 
 void MergeList_L(LinkList &La, LinkList &Lb, LinkList &Lc) {
@@ -81,5 +82,5 @@ void MergeList_L(LinkList &La, LinkList &Lb, LinkList &Lc) {
 	}
 	
 	pc->next = pa ? pa : pb;
-	free(Lb); // ����Ӧ�ò����ͷŰɣ��о������ϳ�����ƹ淶 
+	free(Lb); // 这里应该不能释放吧？感觉不符合程序设计规范 
 }

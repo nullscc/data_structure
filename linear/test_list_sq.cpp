@@ -1,4 +1,4 @@
-// ÏßĞÔ±íµÄË³ĞòÊµÏÖµÄ²âÊÔ³ÌĞò 
+// çº¿æ€§è¡¨çš„é¡ºåºå®ç°çš„æµ‹è¯•ç¨‹åº 
 
 #include<stdio.h>
 #include "list_sq.cpp"
@@ -14,7 +14,7 @@ int main() {
 	SqList L;
 	
 	InitList_SQ(L);
-	printf("³õÊ¼»¯ºó£¬¶¯Ì¬Êı×éµÄµØÖ·:%p, listsize:%d£¬length:%d\n", L.elem, L.listsize, L.length);
+	printf("åˆå§‹åŒ–åï¼ŒåŠ¨æ€æ•°ç»„çš„åœ°å€:%p, listsize:%dï¼Œlength:%d\n", L.elem, L.listsize, L.length);
 	assert(L.elem);
 	assert(LIST_INIT_SIZE==L.listsize);
 	assert(!L.length);
@@ -23,7 +23,7 @@ int main() {
 	for (; i<=L.listsize; i++) {
 		assert(ListInsert_Sq(L, L.length+1, i)==1);
 	}
-	printf("²åÈë100¸öÔªËØºó£¬¶¯Ì¬Êı×éÀïÃæµÄÊı¾İÎª:");
+	printf("æ’å…¥100ä¸ªå…ƒç´ åï¼ŒåŠ¨æ€æ•°ç»„é‡Œé¢çš„æ•°æ®ä¸º:");
 	for (i=1; i<=L.length; i++) {
 		printf(" %d", L.elem[i-1]);
 	}
@@ -37,7 +37,7 @@ int main() {
 	}
 	
 	assert(ListInsert_Sq(L, 99, 98));
-	printf("ÔÚ99µÄÎ»ÖÃÉÏ²åÈë98ºó:");
+	printf("åœ¨99çš„ä½ç½®ä¸Šæ’å…¥98å:");
 	int sum=0;
 	for (i=1; i<=L.length; i++) {
 		sum += L.elem[i-1]; 
@@ -49,13 +49,13 @@ int main() {
 	assert(L.listsize==LIST_INIT_SIZE+LISTINCREMENT);
 	assert(L.length==LIST_INIT_SIZE+1);
 	
-	//É¾³ı99ÉÏµÄ98
+	//åˆ é™¤99ä¸Šçš„98
 	ElemType tmp;
 	assert(ListDelete_Sq(L, 99, tmp));
 	assert(tmp == 98);
 	assert(LIST_INIT_SIZE+LISTINCREMENT==L.listsize);
 	assert(L.length==LIST_INIT_SIZE);
-	printf("É¾³ı99ÉÏµÄ98ºó£¬¶¯Ì¬Êı×éÀïÃæµÄÊı¾İÎª:");
+	printf("åˆ é™¤99ä¸Šçš„98åï¼ŒåŠ¨æ€æ•°ç»„é‡Œé¢çš„æ•°æ®ä¸º:");
 	for (i=1; i<=L.length; i++) {
 		printf(" %d", L.elem[i-1]);
 	}
@@ -68,7 +68,7 @@ int main() {
 		assert(ListInsert_Sq(Lb, Lb.length+1, i)==1);
 	}
 	
-	printf("Lb¶¯Ì¬Êı×éÀïÃæµÄÊı¾İÎª:");
+	printf("LbåŠ¨æ€æ•°ç»„é‡Œé¢çš„æ•°æ®ä¸º:");
 	for (i=1; i<=Lb.length; i++) {
 		printf(" %d", Lb.elem[i-1]);
 	}
@@ -76,7 +76,7 @@ int main() {
 	
 	MergeList_Sq(L, Lb, Lc);
 	
-	printf("Lc¶¯Ì¬Êı×éÀïÃæµÄÊı¾İÎª:");
+	printf("LcåŠ¨æ€æ•°ç»„é‡Œé¢çš„æ•°æ®ä¸º:");
 	ElemType prev = -1;
 	for (i=1; i<=Lc.length; i++) {
 		assert(Lc.elem[i-1] >= prev);

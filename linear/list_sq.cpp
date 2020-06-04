@@ -1,4 +1,4 @@
-// ÏßĞÔ±íµÄË³ĞòÊµÏÖ 
+// çº¿æ€§è¡¨çš„é¡ºåºå®ç° 
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -65,7 +65,7 @@ int LocateElem_Sq(SqList L, ElemType e, Status (*compare)(ElemType, ElemType)) {
 	while (i <= L.length && !(*compare)(*p++, e)) ++i;
 	
 	if (i <= L.length) return i;
-	else return 0; // ·µ»ØµÄÊÇÎ»Ğò£¬ËùÒÔÈç¹ûÕÒµ½ÁË¾Í²»¿ÉÄÜÎª0 
+	else return 0; // è¿”å›çš„æ˜¯ä½åºï¼Œæ‰€ä»¥å¦‚æœæ‰¾åˆ°äº†å°±ä¸å¯èƒ½ä¸º0 
 }
 
 void MergeList_Sq(SqList La, SqList Lb, SqList &Lc) {
