@@ -65,6 +65,7 @@ Status ListDelete_L(LinkList &L, int i, ElemType &e) {
 	return 1;
 }
 
+// 这种实现不开辟新的空间，但是La与Lc的数据会相互影响，其实不太好
 void MergeList_L(LinkList &La, LinkList &Lb, LinkList &Lc) {
 	LinkList pa = La->next, pb = Lb->next;
 	LinkList pc;

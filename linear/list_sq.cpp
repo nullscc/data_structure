@@ -1,4 +1,5 @@
 // 线性表的顺序实现 
+// sq: sequence
 
 #include <stdio.h>
 #include <stdlib.h>
