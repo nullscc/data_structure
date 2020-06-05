@@ -9,7 +9,16 @@ int main() {
 	
 	int i;
 	
-	for (i=1; i<12; i++) Push(S, i);
+	for (i=1; i<11; i++) Push(S, i);
+	printf("栈内的数据为:\n");
+	SElemType *p = S.base;
+	while (p <= S.top) {
+		printf("%d ", *p);
+		p++;
+	
+	}
+	printf("栈的容量为:%d\n", S.stacksize);
+	return 0;
 	
 	int tmp;
 	GetTop(S, tmp);
