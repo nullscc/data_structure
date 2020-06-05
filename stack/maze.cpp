@@ -1,3 +1,6 @@
+// 走迷宫，找方向的时候应该优先往出口的方向
+// 主要点在于: 走过的路不能再走了
+
 #include<stdio.h>
 #include<assert.h>
 #include"maze_stack.cpp"
@@ -6,11 +9,12 @@ void FootPrint(bool f[][10], int x, int y) {
 	f[x][y] = true;
 }
 
-bool Can(bool f[][10], int maze[][10], int x, int y) {
+bool Can(bool (*f)[10], int maze[][10], int x, int y) { // NOTE: 由于寻址问题，二维数组不能直接用指针的指针作为形参，看f和maze的参数传递方式
 	return !f[x][y];
 }
 
 Status FindPath(SqStack &S, bool f[][10], int maze[][10], int &next_x, int &next_y) {
+	// TODO: 总感觉这个函数实现的有点臃肿
 	SElemType tmp;
 	while (true) {
 		if (S.top <= S.base)  {
@@ -18,7 +22,7 @@ Status FindPath(SqStack &S, bool f[][10], int maze[][10], int &next_x, int &next
 		};
 		Pop(S, tmp);
 		switch (tmp.di) {
-			case -1:
+			case 2:
 				if (Can(f, maze, tmp.x, tmp.y-1)) {
 					tmp.di++;
 					next_x = tmp.x;
@@ -30,7 +34,7 @@ Status FindPath(SqStack &S, bool f[][10], int maze[][10], int &next_x, int &next
 					Push(S, tmp);
 				}
 				break;
-			case 0:
+			case 1:
 				if (Can(f, maze, tmp.x-1, tmp.y)) {
 					tmp.di++;
 					next_x = tmp.x-1;
@@ -42,7 +46,7 @@ Status FindPath(SqStack &S, bool f[][10], int maze[][10], int &next_x, int &next
 					Push(S, tmp);
 				}
 				break;
-			case 1:
+			case 0:
 				if (Can(f, maze, tmp.x, tmp.y+1)) {
 					tmp.di++;
 					next_x = tmp.x;
@@ -54,7 +58,7 @@ Status FindPath(SqStack &S, bool f[][10], int maze[][10], int &next_x, int &next
 					Push(S, tmp);
 				}
 				break;
-			case 2:
+			case -1:
 				if (Can(f, maze, tmp.x+1, tmp.y)) {
 					tmp.di++;
 					next_x = tmp.x+1;
@@ -74,6 +78,7 @@ Status FindPath(SqStack &S, bool f[][10], int maze[][10], int &next_x, int &next
 }
 
 int main() {
+	// 找得到路的迷宫
 	int maze[10][10] = {
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // 0
 		{1, 0, 0, 1, 0, 0, 0, 1, 0, 1}, // 1
@@ -86,6 +91,22 @@ int main() {
 		{1, 1, 0, 0, 0, 0, 0, 0, 0, 1}, // 8
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // 9
 	};
+	// 找不到路的迷宫
+	/*
+	int maze[10][10] = {
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // 0
+		{1, 0, 0, 1, 0, 0, 0, 1, 0, 1}, // 1
+		{1, 0, 0, 1, 0, 0, 0, 1, 0, 1},	// 2
+		{1, 0, 0, 0, 0, 1, 1, 0, 0, 1},	// 3
+		{1, 0, 1, 1, 1, 0, 0, 0, 0, 1},	// 4
+		{1, 0, 0, 0, 1, 0, 0, 0, 0, 1}, // 5
+		{1, 0, 1, 0, 0, 1, 1, 0, 0, 1}, // 6
+		{1, 0, 1, 1, 1, 0, 1, 1, 0, 1}, // 7
+		{1, 1, 0, 0, 0, 0, 0, 0, 0, 1}, // 8
+		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // 9
+	};
+	*/
+
 	bool footprint[10][10]; // NOTE: 这里默认是随机的
 	
 	int i, j;
@@ -105,9 +126,11 @@ int main() {
 	FootPrint(footprint, 1, 1);
 	Push(S, start);
 	int next_x, next_y;
+	bool unsolve = false;
 	while (true) {
 		// 1. 找路，得到下一个位置的坐标
 		if (!FindPath(S, footprint, maze, next_x, next_y)) {
+			unsolve = true;
 			printf("unsolvable maze!!! exit!\n");
 			break;
 		}
@@ -126,7 +149,7 @@ int main() {
 
 		// 4. 如果检测到可走并且到了终点了，就退出
 		if (next_x == 8 && next_y == 8) {
-			printf("amazing, you have found the path\n");
+			printf("amazing, you have found the path\n\n");
 			break;
 		}
 	}
@@ -137,6 +160,7 @@ int main() {
 			path[i][j] = false;
 		}
 	}
+	if (unsolve) return 0;
 	printf("路线为:");
 	while (S.top > S.base) {
 		SElemType tmp;
