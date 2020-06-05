@@ -7,35 +7,39 @@ void FootPrint(bool f[][10], int x, int y) {
 }
 
 bool Can(bool f[][10], int maze[][10], int x, int y) {
-	// printf("in Can %d %d %d ", x, y, f[x][y]);
 	return !f[x][y];
 }
 
 Status FindPath(SqStack &S, bool f[][10], int maze[][10], int &next_x, int &next_y) {
 	SElemType tmp;
-
 	while (true) {
-		GetTop(S, tmp);
 		if (S.top <= S.base)  {
 			return ERROR;
-
 		};
-		// printf("tmp: %d %d %d\n", tmp.di, tmp.x, tmp.y);
+		Pop(S, tmp);
 		switch (tmp.di) {
 			case -1:
-				if (Can(f, maze, tmp.x-1, tmp.y)) {
-					tmp.di++;
-					next_x = tmp.x-1;
-					next_y = tmp.y;	
-					return OK;
-				}
-				break;
-			case 0:
 				if (Can(f, maze, tmp.x, tmp.y-1)) {
 					tmp.di++;
 					next_x = tmp.x;
 					next_y = tmp.y-1;	
+					Push(S, tmp);
 					return OK;
+				} else {
+					tmp.di++;
+					Push(S, tmp);
+				}
+				break;
+			case 0:
+				if (Can(f, maze, tmp.x-1, tmp.y)) {
+					tmp.di++;
+					next_x = tmp.x-1;
+					next_y = tmp.y;	
+					Push(S, tmp);
+					return OK;
+				} else {
+					tmp.di++;
+					Push(S, tmp);
 				}
 				break;
 			case 1:
@@ -43,7 +47,11 @@ Status FindPath(SqStack &S, bool f[][10], int maze[][10], int &next_x, int &next
 					tmp.di++;
 					next_x = tmp.x;
 					next_y = tmp.y+1;	
+					Push(S, tmp);
 					return OK;
+				} else {
+					tmp.di++;
+					Push(S, tmp);
 				}
 				break;
 			case 2:
@@ -51,14 +59,16 @@ Status FindPath(SqStack &S, bool f[][10], int maze[][10], int &next_x, int &next
 					tmp.di++;
 					next_x = tmp.x+1;
 					next_y = tmp.y;	
+					Push(S, tmp);
 					return OK;
+				} else {
+					tmp.di++;
+					Push(S, tmp);
 				}
 				break;
-			case 3:
-				Pop(S, tmp);
+			default:
 				break;
 		}
-
 	}
 	return OK;
 }
@@ -76,17 +86,18 @@ int main() {
 		{1, 1, 0, 0, 0, 0, 0, 0, 0, 1}, // 8
 		{1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, // 9
 	};
-	bool footprint[10][10];
+	bool footprint[10][10]; // NOTE: 这里默认是随机的
 	
-	int i=0, j=0;
-	for (;i<9;i++) {
-		for (;j<9;j++) {
-			printf("i:%d j:%d\n", i, j);
-			// footprint[i][j] = false;
+	int i, j;
+	printf("输入的迷宫为:\n");
+	for (i=0;i<10;i++) { // NOTE: 不知道为啥必须在这里初始化
+		for (j=0;j<10;j++) {
+			footprint[i][j] = false;
+			printf("%d ", maze[i][j]);
 		}
+		printf("\n");
 	}
 	
-	return 0;
 	SqStack S;
 	InitStack(S);
 
@@ -100,7 +111,6 @@ int main() {
 			printf("unsolvable maze!!! exit!\n");
 			break;
 		}
-		printf("next coordinate %d %d\n", next_x, next_y);
 
 		FootPrint(footprint, next_x, next_y);
 		// 2. 验证坐标是否可走
@@ -115,7 +125,31 @@ int main() {
 		Push(S, tmp);
 
 		// 4. 如果检测到可走并且到了终点了，就退出
-		if (next_x == 8 && next_y == 8) break;
+		if (next_x == 8 && next_y == 8) {
+			printf("amazing, you have found the path\n");
+			break;
+		}
+	}
+	bool path[10][10];
+	
+	for (i=0;i<10;i++) {
+		for (j=0;j<10;j++) {
+			path[i][j] = false;
+		}
+	}
+	printf("路线为:");
+	while (S.top > S.base) {
+		SElemType tmp;
+		Pop(S, tmp);
+		path[tmp.x][tmp.y] = true;
+	}
+
+	for (i=0;i<10;i++) { // NOTE: 不知道为啥必须在这里初始化
+		for (j=0;j<10;j++) {
+			if (path[i][j]) printf("*");
+			else printf(" ");
+		}
+		printf("\n");
 	}
 
 	return 0;
