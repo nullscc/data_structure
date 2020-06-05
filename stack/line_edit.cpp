@@ -2,8 +2,6 @@
 #include<assert.h>
 #include"stack_sq.cpp"
 
-
-
 int main() {
 	SqStack S;
 	InitStack(S);
