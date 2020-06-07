@@ -10,7 +10,7 @@ void get_next(char *p, int *next) {	// 这里取到的next值和书本上差1
 	int len_p = strlen(p);
 	
 	next[0] = -1;
-	while (i < len_p) {
+	while (i < len_p) {		// 注意理解为什么下标i没有越界
 		if(j == -1 || p[i] == p[j]) {
 			i++; j++;
 			next[i] = j;
