@@ -2,7 +2,8 @@
 #include<stdlib.h>
 #include"../common.h"
 
-typedef int SElemType;
+
+typedef pNode SElemType;
 
 typedef struct {
 	SElemType *base;
@@ -52,20 +53,6 @@ Status Pop(SqStack &S, SElemType &e) {
 
 Status ClearStack(SqStack &S) {
 	S.top = S.base; // NOTE: 这里有一次错误的将其写成S.base=S.top，结果总是报realloc invalid pointer，因为realloc的第一个参数必须要是malloc返回的等堆区的地址，所以不能乱改S.base的地址
-
-	return OK;	
-}
-
-Status PrintStack(SqStack &S) {
-	if (S.base == S.top) {
-		return ERROR;
-	}
-
-	int tmp;
-	SElemType *s_base = S.base;
-	while (s_base < S.top) {
-		printf("%c", *s_base++);
-	}
 
 	return OK;	
 }
