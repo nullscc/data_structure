@@ -1,4 +1,4 @@
-// 先序遍历二叉树
+// 中序遍历线索二叉树
 #include<stdio.h>
 #include<stdlib.h>
 #include"../common.h"
