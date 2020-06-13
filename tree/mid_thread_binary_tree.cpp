@@ -56,9 +56,9 @@ Status MidThread(pNode &p, pNode &pre) {
 
 Status CreateMidThread(pNode &p) {
 	if (!p) return OK;
-	pNode pre;
+	pNode pre=NULL;		// NOTE: 这里保证中序遍历的第一个节点的前驱没有了
 	MidThread(p, pre);
-	pre->rchild = NULL;
+	pre->rchild = NULL;	// NOTE: 这里保证中序遍历的最后一个节点的后继没有了
 	pre->rtag = true;
 	return OK;
 }
@@ -84,9 +84,7 @@ void SearchMidThreadRear(pNode p) {
 }
 
 pNode LastNode(pNode p) {
-	while (!p->rtag) {
-		p = p->rchild; // 一直找到没有右子结点的结点
-	}
+	while (!p->rtag) p = p->rchild; // 一直找到没有右子结点的结点
 	return p;
 }
 
