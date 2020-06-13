@@ -84,7 +84,9 @@ void SearchMidThreadRear(pNode p) {
 }
 
 pNode LastNode(pNode p) {
-	while (!p->rtag) p = p->rchild; // 一直找到没有右子结点的结点
+	while (!p->rtag) {
+		p = p->rchild; // 一直找到没有右子结点的结点
+	}
 	return p;
 }
 
