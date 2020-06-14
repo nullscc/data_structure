@@ -114,9 +114,7 @@ void DFSSearch(Graph &g) {
 	free(visited);
 }
 
-void BFS(Graph &g, int v, bool *visited) {
-	Queue Q;
-	InitQueue(Q);
+void BFS(Graph &g, int v, bool *visited, Queue &Q) {
 	
 	visit(g, v);
 	visited[v] = true;
@@ -140,17 +138,18 @@ void BFSSearch(Graph &g) {
 	int i;
 
 	bool *visited = (bool*)malloc(sizeof(bool)*g.vexnum);
+
+	Queue Q;
+	InitQueue(Q);
 	for(i=0; i<g.vexnum; i++) {
 		visited[i] = false;
 	}
 
 	for(i=0; i<g.vexnum; i++) {
-		if (!visited[i]) BFS(g, i, visited);	// 解决了多个连通分量的问题
+		if (!visited[i]) BFS(g, i, visited, Q);	// 解决了多个连通分量的问题
 	}
 
 	free(visited);
-
-
 
 }
 

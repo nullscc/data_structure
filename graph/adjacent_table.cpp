@@ -92,10 +92,7 @@ void DFSSearch(Graph &g) {
 	free(visited);
 }
 
-void BFS(Graph &g, int v, bool *visited) {
-	Queue Q;
-	InitQueue(Q);
-
+void BFS(Graph &g, int v, bool *visited, Queue &Q) {
 	EnQueue(Q, v);
 	visited[v] = true;
 	visit(g, v);
@@ -118,10 +115,13 @@ void BFS(Graph &g, int v, bool *visited) {
 
 void BFSSearch(Graph &g) {
 	int i;
+	Queue Q;
+	InitQueue(Q);
+
 	bool *visited = (bool *)malloc(sizeof(bool)*g.vexnum);
 	for(i=0; i<g.vexnum; i++) {
 		if(!visited[i]) {
-			BFS(g, i, visited);
+			BFS(g, i, visited, Q);
 		}
 	}
 	free(visited);
