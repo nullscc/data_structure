@@ -50,13 +50,8 @@ Status Connect(Graph &g, int i, int j) {
 }
 
 Status GetEdge(Graph &g) {
-	int i, j;
+	int i;
 	int v1, v2;
-
-	for(i=0; i<MAXSIZE; i++) {
-		for(j=0; j<MAXSIZE; j++) {
-		}
-	}
 
 	printf("请输入边信息, 格式为1,2 2,3(以1开始), 0,0代表结束:");
 	scanf("%d,%d", &v1, &v2);
