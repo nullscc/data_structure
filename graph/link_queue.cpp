@@ -2,10 +2,10 @@
 #include<stdlib.h>
 #include"../common.h"
 
-typedef int ElemType;
+typedef pNode QElemType;
 
 typedef struct QNode{ // 这里必须要先"证明"这个结构体名是QNode，不然在里面没法定义next
-	ElemType data;
+	QElemType data;
 	struct QNode *next;
 }QNode, *pQNode;
 
@@ -23,7 +23,7 @@ Status InitQueue(Queue &Q) {
 	return OK;
 }
 
-Status EnQueue(Queue &Q, ElemType e) {
+Status EnQueue(Queue &Q, QElemType e) {
 	// NOTE: 插入不存在队列满的情况
 	
 	pQNode tmp = (pQNode)malloc(sizeof(QNode));
@@ -38,7 +38,7 @@ Status EnQueue(Queue &Q, ElemType e) {
 	return OK;
 }
 
-Status DeQueue(Queue &Q, ElemType &e) {
+Status DeQueue(Queue &Q, QElemType &e) {
 	if (Q.front == Q.rear) return ERROR;
 
 	pQNode tmp = Q.front->next;
@@ -50,6 +50,7 @@ Status DeQueue(Queue &Q, ElemType &e) {
 
 	return OK;
 }
+
 
 Status QIsEmpty(Queue &Q) {
 	return Q.front == Q.rear;
