@@ -10,7 +10,7 @@ typedef struct {
 	int stacksize;
 }SqStack;
 
-#define STACK_INIT_SIZE 10
+#define STACK_INIT_SIZE 100
 #define STACKINCREMENT 10
 
 

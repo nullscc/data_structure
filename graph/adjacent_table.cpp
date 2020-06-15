@@ -45,7 +45,7 @@ Status Connect(Graph &g, int i, int j) {
 	p_t->v = j;
 	p_t->next = g.vex[i].first;
 	
-	g.vex[i].first = p_t;		// NOTE: 由于边没有顺序要求，所以直接插入最后即可
+	g.vex[i].first = p_t;		// NOTE: 由于边没有顺序要求，所以直接插入即可
 	return OK;
 }
 
