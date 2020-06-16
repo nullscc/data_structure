@@ -1,6 +1,7 @@
 // 二叉排序树不能有相同的数值？
 #include<stdio.h>
 #include<stdlib.h>
+#include<assert.h>
 #include<limits.h>
 #include"../common.h"
 
@@ -24,8 +25,6 @@ Status Search(pNode &T, pNode f, pNode &p, ElemType e, pNode &parent) {
 		parent = f;
 		return ERROR;
 	}
-	ret = Search(T->lchild, T, p, e, parent);
-	if (!ret) return ret;
 
 	if(T->data == e) {
 		p = T;
@@ -33,9 +32,11 @@ Status Search(pNode &T, pNode f, pNode &p, ElemType e, pNode &parent) {
 		return OK;
 	}
 
-	ret = Search(T->rchild, T, p, e, parent);
-	if (!ret) return ret;
-	return OK;
+	if(e < T->data) {
+		return Search(T->lchild, T, p, e, parent);
+	} else {
+		return Search(T->rchild, T, p, e, parent);
+	}
 }
 
 Status Insert(pNode &T, ElemType e) {
@@ -63,7 +64,7 @@ Status Insert(pNode &T, ElemType e) {
 		}
 		return OK;
 	}
-	return ERROR;
+	return OK;
 }
 
 Status SearchLchildRchildLast(pNode &T, pNode &f, pNode &last){
@@ -77,7 +78,7 @@ Status SearchLchildRchildLast(pNode &T, pNode &f, pNode &last){
 			f = p;
 			last = p->rchild;
 		}
-		p->rchild;
+		p = p->rchild;
 	}
 
 	return OK;
@@ -85,13 +86,23 @@ Status SearchLchildRchildLast(pNode &T, pNode &f, pNode &last){
 
 Status Delete(pNode &T, ElemType e) {
 	pNode s, parent;
-	int ret = Search(T, NULL, s, e, parent);
+	int ret = Search(T, NULL, s, e, parent);			// 处理parent为NULL的情况太麻烦了，so ugly
 	if(!ret) return ERROR;
+	printf("搜索:%d,它的父结点为:%d, 搜索到的结点:%d\n", e, parent->data, s->data);
 
 	if (!s->lchild) {
-		parent->rchild = s->rchild;
+		if(s->data < parent->data) {
+			parent->lchild = s->rchild;
+		} else {
+			parent->rchild = s->rchild;
+		}
 	} else if(!s->rchild) {
-		parent->lchild = s->lchild;
+		if(s->data < parent->data) {
+			parent->lchild = s->lchild;
+		} else {
+			parent->rchild = s->lchild;
+		}
+
 	} else {
 		pNode f, last;
 		SearchLchildRchildLast(s, f, last);
@@ -112,14 +123,35 @@ Status Delete(pNode &T, ElemType e) {
 	return OK;
 }
 
+Status print_elem(ElemType e) {
+	printf("%d ", e);
+	return OK;
+}
+
+Status MidSearch(pNode pnode) {
+	if (!pnode) return OK;
+	MidSearch(pnode->lchild);
+	print_elem(pnode->data);
+	MidSearch(pnode->rchild);
+	return OK;
+}
+
+
 int main() {
 	int a[10] = {62, 88, 58, 47, 35, 73, 51, 99, 37, 93};
 	int i;
-	pNode T;
+	pNode T=NULL;
 	for(i=0; i<10; i++) {
-		Insert(T, a[i]);
+		assert(Insert(T, a[i]));
 	}
 
+	printf("创建排序树完成以后的数据:");
+	MidSearch(T);
+	printf("\n");
 
+	Delete(T, 62);
+	printf("删除一个数据以后树的数据:");
+	MidSearch(T);
+	printf("\n");
 	return 0;
 }
