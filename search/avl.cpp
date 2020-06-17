@@ -1,7 +1,12 @@
-// 二叉平衡树
-// AVL取名自发明者，和算法本身没什么直接联系
+/* 二叉平衡树
+AVL取名自发明者，和算法本身没什么直接联系
+几个要点：
+	1. 不要试图直接一次性将所有的BF扳正，要利用递归一层一层来处理，每层只处理自己的，这就是taller的作用
+	2. 注意处理好单旋和双旋的情况即可(目录下有手推图)
+*/
 #include<stdio.h>
 #include<stdlib.h>
+#include<assert.h>
 #include"../common.h"
 
 #define LH 1	// 左高
@@ -19,7 +24,6 @@ typedef struct Node{
 }Node, *pNode;
 
 void L_Rotate(pNode &T) {
-	printf("%d左旋\n", T->data);
 	pNode R = T->rchild;
 	T->rchild = R->lchild;
 	R->lchild = T;
@@ -27,7 +31,6 @@ void L_Rotate(pNode &T) {
 }
 
 void R_Rotate(pNode &T) {
-	printf("%d右旋\n", T->data);
 	pNode L = T->lchild;
 	T->lchild = L->rchild;
 	L->rchild = T;
@@ -56,7 +59,7 @@ void LeftBalance(pNode &T) {
 				T->BF = EH;
 				break;
 		}
-		L_Rotate(L);
+		L_Rotate(T->lchild);		// NOTE: 这里不能用L变量，因为最终的结果是需要改变T->lchild，用L变量达不到效果
 		R_Rotate(T);
 	}
 }
@@ -82,8 +85,9 @@ void RightBalance(pNode &T) {
 				T->BF = LH;
 				break;
 		}
-		L_Rotate(R);
-		R_Rotate(T);
+		R_Rotate(T->rchild);			// NOTE: 这里的对称性也有坑~
+		pNode tmp = T;
+		L_Rotate(T);
 	}
 }
 
@@ -98,7 +102,6 @@ Status InsertAVL(pNode &T, ElemType e, bool &taller) {
 		return OK;
 	}
 	if(e < T->data) {
-		printf("往左:\n");
 		if(!InsertAVL(T->lchild, e, taller)) return ERROR;
 		
 		if(taller) {				// NOTE: 这里的taller其实是从刚新建结点后的那一层InserAVL返回来的，处理完后要将taller置为false，以免影响更上一层的InserAVL
@@ -119,7 +122,6 @@ Status InsertAVL(pNode &T, ElemType e, bool &taller) {
 		
 		}
 	} else if(e > T->data) {
-		printf("往右:\n");
 		if(!InsertAVL(T->rchild, e, taller)) return ERROR;
 		
 		if(taller) {
@@ -130,7 +132,7 @@ Status InsertAVL(pNode &T, ElemType e, bool &taller) {
 					break;
 				case EH:
 					T->BF = RH;
-					taller = false;
+					taller = true;
 					break;
 				case RH:
 					RightBalance(T);
@@ -146,16 +148,32 @@ Status InsertAVL(pNode &T, ElemType e, bool &taller) {
 	return OK;
 }
 
+Status print_elem(ElemType e) {
+	printf("%d ", e);
+	return OK;
+}
+
+Status MidSearch(pNode pnode) {
+	if (!pnode) return OK;
+	MidSearch(pnode->lchild);
+	print_elem(pnode->data);
+	MidSearch(pnode->rchild);
+	return OK;
+}
+
 
 int main() {
-	int i;
-	int a[10] = {3,2,1,4,5,6,7,10,9,8};
 	pNode T = NULL;
 	bool taller;
+	int i;
+	int a[10] = {3,2,1,4,5,6,7,10,9,8};
 	for(i=0; i<10; i++) {
-		printf("插入:%d\n", a[i]);
 		InsertAVL(T, a[i], taller);
 	}
+	assert(T->data == 4);
 
+	printf("中序遍历结果:");
+	MidSearch(T);
+	printf("\n");
 	return 0;
 }
