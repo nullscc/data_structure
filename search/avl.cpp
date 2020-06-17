@@ -19,6 +19,7 @@ typedef struct Node{
 }Node, *pNode;
 
 void L_Rotate(pNode &T) {
+	printf("%d左旋\n", T->data);
 	pNode R = T->rchild;
 	T->rchild = R->lchild;
 	R->lchild = T;
@@ -26,6 +27,7 @@ void L_Rotate(pNode &T) {
 }
 
 void R_Rotate(pNode &T) {
+	printf("%d右旋\n", T->data);
 	pNode L = T->lchild;
 	T->lchild = L->rchild;
 	L->rchild = T;
@@ -96,6 +98,7 @@ Status InsertAVL(pNode &T, ElemType e, bool &taller) {
 		return OK;
 	}
 	if(e < T->data) {
+		printf("往左:\n");
 		if(!InsertAVL(T->lchild, e, taller)) return ERROR;
 		
 		if(taller) {				// NOTE: 这里的taller其实是从刚新建结点后的那一层InserAVL返回来的，处理完后要将taller置为false，以免影响更上一层的InserAVL
@@ -116,6 +119,7 @@ Status InsertAVL(pNode &T, ElemType e, bool &taller) {
 		
 		}
 	} else if(e > T->data) {
+		printf("往右:\n");
 		if(!InsertAVL(T->rchild, e, taller)) return ERROR;
 		
 		if(taller) {
@@ -126,7 +130,6 @@ Status InsertAVL(pNode &T, ElemType e, bool &taller) {
 					break;
 				case EH:
 					T->BF = RH;
-					RightBalance(T);
 					taller = false;
 					break;
 				case RH:
@@ -150,6 +153,7 @@ int main() {
 	pNode T = NULL;
 	bool taller;
 	for(i=0; i<10; i++) {
+		printf("插入:%d\n", a[i]);
 		InsertAVL(T, a[i], taller);
 	}
 
