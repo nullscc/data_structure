@@ -3,6 +3,12 @@
 
 void merge(int *t, int *l, int i, int mid, int j) {
 	int m=i, n=mid+1;
+	/*
+	 * 如果这里写成了n=mid; 且程序排序的数组是3个，那么程序会报下列错误:
+	 * *** stack smashing detected ***: <unknown> terminated
+	 * Aborted (core dumped)
+	 * 原因是会导致l[index]数组越界...
+	 */
 	int index = i;
 	while(m<=mid && n<=j) {
 		if(t[m]<t[n]) {
