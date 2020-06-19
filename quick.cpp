@@ -34,15 +34,30 @@ int patition(int *l, int low, int high) {
 void sort(int *l, int low, int high) {
 	while(low<high) {
 		int pivot = patition(l, low, high);
-		sort(l, low, pivot-1);					// NOTE: 这里本来需要调用两个，sort函数的，通过循环的方式只需要调用一个即可了，减少了栈的深度
-		low = pivot + 1;
+		sort(l, low, pivot-1);
+		low = pivot + 1;							// NOTE: 这里书上说是尾递归优化，其实并不是，它只是通过将右区间通过循环的方式来减少栈的深度(如果没有进行pivot优化，在极端情况下此优化无用)，其实还可以进一步优化减少栈的深度，见sort2
+													// 参考资料见: https://blog.csdn.net/qq_40586164/article/details/105768195 和 https://www.zhihu.com/question/285631475
+	}
+}
+
+void sort2(int *l, int low, int high) {
+	while(low<high) {
+		int pivot = patition(l, low, high);
+		if((low-pivot)<high) {						// NOTE: 这里的优化其实是采取将区间长度较小的区间进行递归，而区间较长的区间进行进行循环，这样区间较长的区间的这一步操作就不用压栈了
+			sort(l, low, pivot-1);
+			low = pivot + 1;
+		} else {
+			sort(l, pivot+1, high);
+			high = pivot - 1;
+		}
 	}
 }
 
 
+
 int main() {
 	int l[9] = {9, 1, 5, 8, 3, 7, 4, 6, 2};
-	sort(l, 0, 8);
+	sort2(l, 0, 8);
 
 	int i;
 	printf("排序后的序列:");
