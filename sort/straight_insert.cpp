@@ -23,7 +23,7 @@ void sort(int *l, int n) {
 	for(i=2; i<=n; i++) {
 		if(l[i] < l[i-1]) {
 			l[0] = l[i];
-			for(j=i-1; l[j]>l[0]; j--) {
+			for(j=i-1; l[j]>l[0]; j--) {		// NOT: 保证了如果l[i]是所有数里面最小，l[i]最终会被交换到最前面
 				l[j+1] = l[j];
 			}
 			l[j+1] = l[0];

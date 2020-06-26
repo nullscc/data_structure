@@ -58,6 +58,8 @@ Status GetEdge(Graph &g) {
 	return OK;
 }
 
+// NOTE: D存储权重信息
+// P存储路径信息，P[i][j]表示从i->j要经过P[i][j]
 void floyd(Graph &g, int D[MAXSIZE][MAXSIZE], int P[MAXSIZE][MAXSIZE]) {
 	int k, i, j;
 	for(i=0; i<g.vexnum; i++) {

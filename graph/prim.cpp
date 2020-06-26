@@ -1,5 +1,5 @@
 // 无向网的Prim算法(找最小生成树)
-// 算法基本思路是: 从某个点出发，每次都找与之相连权值最小的路径，知道所有顶点都连上了
+// 算法基本思路是: 从某个点出发，每次都找与之相连权值最小的路径，直到所有顶点都连上了
 // 采用邻接矩阵存储，这个程序的缺陷在于: 主对角线元素必须全为0，且能连上的边的权值不能为0
 
 #include<stdio.h>
@@ -59,8 +59,8 @@ Status GetEdge(Graph &g) {
 }
 
 void prim(Graph &g) {
-	// NOTE: 关键在于理解这两个数组，要记住，他们两个是同时改变储值的
-	int lowcost[MAXSIZE];		// lowcost有两个作用: 为0代表已经作为顶点纳入到了最小生成树里面了；存储已经纳入的所有顶点的与之相连边的权值，以便找出代价最小的路径
+	// NOTE: 关键在于理解这两个数组
+	int lowcost[MAXSIZE];		// lowcost有两个作用: 为0代表已经作为顶点纳入到了最小生成树里面了；存储已经纳入的所有顶点的与之相连边的权值之和，以便找出代价最小的路径
 	int adjvex[MAXSIZE];		// 它的作用仅仅是: 当找到一个最小的顶点坐标k，那么adjvex[k]代表与k相连的顶点坐标
 	
 	int i, j;
@@ -79,6 +79,7 @@ void prim(Graph &g) {
 			}
 		}
 		printf("找到路径:%c->%c\n", g.vex[adjvex[k]], g.vex[k]);
+		lowcost[k] = 0;
 
 		for(j=0; j<g.vexnum; j++) {
 			if(lowcost[j]!=0 && g.edge[k][j] < lowcost[j]) {

@@ -126,6 +126,7 @@ Status LevelSearch(HTNode *ht, int n) {
 }
 
 // 编码就是将一串字符编码成二进制前缀码
+// 由所有的叶子结点一直往上找到根结点，由于数组的前n个就是叶子结点且每个结点都存储了它的双亲结点，所以这很容易办到
 char **HuffmanEncode(pHTNode ht, int n) {
 	char **hc=(char**)malloc(sizeof(char *)*(n));;
 	int m = 2*n-1;

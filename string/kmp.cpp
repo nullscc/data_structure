@@ -5,6 +5,7 @@
 #include<string.h>
 #include"../common.h"
 
+// NOTE: 得到next数值的过程仍然看作一个逐步模式匹配的过程
 void get_next(char *p, int *next) {	// 这里取到的next值和书本上差1
 	int i=0, j=-1;
 	int len_p = strlen(p);
@@ -28,7 +29,7 @@ void get_nextval(char *p, int *next) {	// 这里取到的next值和书本上差1
 	while (i < len_p) {
 		if(j == -1 || p[i] == p[j]) {
 			i++; j++;
-			if (p[i] == p[j])  next[i] = next[j];
+			if (p[i] == p[j])  next[i] = next[j];		// NOTE: 这里的的优化原因在于:next数组表示当某个数与当前next值不匹配，那么就代表需要回退到某个点，如果模式值相等，那么这次比较也无意义了，直接回退到不相等的点，减少比较次数
 			else next[i] = j;
 		} else {
 			j = next[j];

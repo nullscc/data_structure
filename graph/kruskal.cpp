@@ -1,4 +1,4 @@
-// 要是边集数组表示边，切边已经按从小到大排好了
+// 要是边集数组表示边，且边已经按从小到大排好了
 
 #include<stdio.h>
 #include<stdlib.h>
@@ -58,7 +58,7 @@ Status GetEdge(Graph &g) {
 }
 
 // NOTE: 主要用来发现是否组成了回路，主要是理解parent是用来干啥的
-// 返回的其实是连通分量中最后一个加入的顶点坐标
+// 返回的其实是连通分量中最后一个加入的end的顶点坐标
 int find(int *parent, int f) {
 	while(parent[f]>0) f = parent[f];
 	return f;

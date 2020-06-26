@@ -81,7 +81,7 @@ void Dijkstra(Graph &g, int start, int *parent_path, int *shortest_weight) {
 		}
 		f[k] = 1;							// 因为下面的for循环已经将数据更新进shortest_weight，所以这里找到的最小的权重的值就是start到其最短的路径
 		for(j=0; j<g.vexnum; j++) {			// 依据找到的最短路径k去更远的地方找
-			if(!f[j] && g.edge[k][j]!=INT_MAX && min+g.edge[k][j] < shortest_weight[j]) {
+			if(!f[j] && g.edge[k][j]!=INT_MAX && min+g.edge[k][j] < shortest_weight[j]) {		// NOTE: 中转比直接到耗费更小
 				// NOTE: 如果边的权重本身已经是无穷大了，加上某个数不可能比shortest_weight[j], 所以要判断g.edge[k][j]本身是否已经是无穷大了，如果是无穷大说明它们本身就不相连，也就不存在判断了
 				shortest_weight[j] = min+g.edge[k][j];
 				parent_path[j] = k;
