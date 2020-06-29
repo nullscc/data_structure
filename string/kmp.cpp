@@ -29,7 +29,8 @@ void get_nextval(char *p, int *next) {	// 这里取到的next值和书本上差1
 	while (i < len_p) {
 		if(j == -1 || p[i] == p[j]) {
 			i++; j++;
-			if (p[i] == p[j])  next[i] = next[j];		// NOTE: 这里的的优化原因在于:next数组表示当某个数与当前next值不匹配，那么就代表需要回退到某个点，如果模式值相等，那么这次比较也无意义了，直接回退到不相等的点，减少比较次数
+			printf("i:%d j:%d\n", i, j);
+			if (i<len_p && p[i] == p[j])  next[i] = next[j];		// NOTE: 这里的的优化原因在于:next数组表示当某个数与当前next值不匹配，那么就代表需要回退到某个点，如果模式值相等，那么这次比较也无意义了，直接回退到不相等的点，减少比较次数
 			else next[i] = j;
 		} else {
 			j = next[j];
@@ -39,8 +40,8 @@ void get_nextval(char *p, int *next) {	// 这里取到的next值和书本上差1
 
 int kmp(char *s, char *p) {
 	int next[255] = {0};
-	get_next(p, next);
-	// get_nextval(p, next);
+	// get_next(p, next);
+	get_nextval(p, next);
 	
 	// DEBUG
 	// int tmp;
