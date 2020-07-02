@@ -60,7 +60,7 @@ Status GetEdge(Graph &g) {
 // NOTE: 主要用来发现是否组成了回路，主要是理解parent是用来干啥的
 // 返回的其实是连通分量中最后一个加入的end的顶点坐标
 int find(int *parent, int f) {
-	while(parent[f]>0) f = parent[f];
+	while(parent[f]>=0) f = parent[f];
 	return f;
 }
 
@@ -68,7 +68,7 @@ void kruskal(Graph &g) {
 	int i, n, m;
 	int parent[MAXSIZE];
 	for(i=0; i<MAXSIZE; i++) {
-		parent[i] = 0;
+		parent[i] = -1;		// NOTE: 不能像大话上说的用0，用0是依赖数据存储的实现，不合理
 	}
 	for(i=0; i<g.edgenum; i++) {
 		m = find(parent, g.edge[i].begin);

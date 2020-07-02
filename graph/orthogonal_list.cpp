@@ -55,9 +55,9 @@ Status GetEdge(Graph &g) {
 		p_tnode->tvex = v1-1;
 		p_tnode->hvex = v2-1;
 		p_tnode->tlink = g.vex[v1-1].firstout;
-
 		g.vex[v1-1].firstout = p_tnode;
-		p_tnode->hlink = g.vex[v2-1].firstout;
+
+		p_tnode->hlink = g.vex[v2-1].firstin;
 		g.vex[v2-1].firstin = p_tnode;
 		scanf("%d,%d", &v1, &v2);
 		i++;
